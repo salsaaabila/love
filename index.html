@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You</title>
+    <style>
+        body {
+            background-color: #fafafa;
+            font-family: 'Courier New', Courier, monospace; /* Gaya mesin ketik */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        .container {
+            text-align: center;
+            padding: 30px;
+            max-width: 350px;
+            width: 85%;
+        }
+        h1 { font-size: 1.8rem; margin-bottom: 20px; color: #555; }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            outline: none;
+            box-sizing: border-box;
+        }
+        button {
+            background: none;
+            border: 1px solid #333;
+            color: #333;
+            padding: 10px 25px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+        button:hover {
+            background: #333;
+            color: #fff;
+        }
+        .hidden { display: none; }
+        #pesanKetik {
+            line-height: 1.8;
+            font-size: 1rem;
+            text-align: left;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="step1" class="container">
+        <h1>Hai, Al! 👋</h1>
+        <button onclick="lanjutKeNama()">Pencet</button>
+    </div>
+
+    <div id="step2" class="container hidden">
+        <p>Boleh tau namaku siapa di sini?</p>
+        <input type="text" id="inputNama" placeholder="Ketik namamu...">
+        <br>
+        <button onclick="mulaiCerita()">Buka Pesan</button>
+    </div>
+
+    <div id="step3" class="container hidden">
+        <h2 id="salam"></h2>
+        <div id="pesanKetik"></div>
+    </div>
+
+    <script>
+        function lanjutKeNama() {
+            document.getElementById('step1').classList.add('hidden');
+            document.getElementById('step2').classList.remove('hidden');
+        }
+
+        function mulaiCerita() {
+            const nama = document.getElementById('inputNama').value;
+            if (nama.trim() === "") {
+                alert("Isi dulu dong namamu..");
+                return;
+            }
+
+            document.getElementById('step2').classList.add('hidden');
+            document.getElementById('step3').classList.remove('hidden');
+            document.getElementById('salam').innerText = "Halo, " + nama + "!";
+
+            const teks = "Ga nyangka main anon iseng malah ketemu orang random yang lucu. From stranger to mutual ig. Internet works in mysterious ways fr.\n\nSemangat buat sekolahnya, jangan lupa terus ceritain bukunya ke akuu! ✨";
+            
+            ketikPesan(teks);
+        }
+
+        function ketikPesan(txt) {
+            let i = 0;
+            const target = document.getElementById("pesanKetik");
+            function type() {
+                if (i < txt.length) {
+                    target.innerHTML += txt.charAt(i);
+                    i++;
+                    setTimeout(type, 50); // Kecepatan mengetik (50ms)
+                }
+            }
+            type();
+        }
+    </script>
+</body>
+</html>
